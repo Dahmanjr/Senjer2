@@ -216,7 +216,7 @@ GUIDELINES:
 
 # ── Gemini API call (pure requests, no SDK) ───────────────────────────────────
 def call_gemini(history: list) -> str:
-    api_key = os.environ.get("GOOGLE_API_KEY", "")
+    api_key = os.environ.get("GOOGLE_API_KEY", "AQ.Ab8RN6Ib3v2QpcCGldQt3dAC0CYR6lqAZhIArbi-sN5h6UBJZw")
     if not api_key:
         return "⚠️ GOOGLE_API_KEY is not set. Please set it as an environment variable."
 
