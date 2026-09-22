@@ -26,7 +26,7 @@ st.set_page_config(
     initial_sidebar_state="collapsed",
 )
 
-# ─── LOGO AS BASE64 ────────────────────────────────────────────────────────────
+# ─── LOGO ──────────────────────────────────────────────────────────────────────
 
 def get_logo_b64():
     logo_path = Path(__file__).parent / "logo.jpeg"
@@ -47,12 +47,12 @@ st.markdown("""
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Montserrat:wght@300;400;500&display=swap');
 
-/* ── Reset & Base ── */
+/* ── Reset ── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 html, body, [class*="css"], .stApp {
-    background-color: #0a0a0a !important;
-    color: #d4af6e;
+    background-color: #080808 !important;
+    color: #e8dcc8;
     font-family: 'Montserrat', sans-serif;
     font-weight: 300;
 }
@@ -63,22 +63,17 @@ html, body, [class*="css"], .stApp {
 [data-testid="stDecoration"],
 [data-testid="stStatusWidget"] { display: none !important; }
 
-/* Remove default padding */
 .main .block-container {
     padding: 0 !important;
     max-width: 100% !important;
 }
 section[data-testid="stMain"] > div { padding: 0 !important; }
 
-/* ── Page shell ── */
+/* ── Page ── */
 .page {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    max-width: 680px;
+    max-width: 700px;
     margin: 0 auto;
     padding: 0 20px;
-    position: relative;
 }
 
 /* ── Header ── */
@@ -87,186 +82,257 @@ section[data-testid="stMain"] > div { padding: 0 !important; }
     flex-direction: column;
     align-items: center;
     padding: 40px 0 28px;
-    border-bottom: 1px solid rgba(212,175,110,0.18);
-    margin-bottom: 28px;
+    border-bottom: 1px solid rgba(212,175,110,0.15);
+    margin-bottom: 32px;
 }
 .brand-logo {
-    width: 110px;
-    height: 110px;
+    width: 100px;
+    height: 100px;
     border-radius: 50%;
     object-fit: cover;
-    margin-bottom: 18px;
-    border: 1px solid rgba(212,175,110,0.3);
-    box-shadow: 0 0 28px rgba(212,175,110,0.08);
+    margin-bottom: 16px;
+    border: 1px solid rgba(212,175,110,0.25);
+    box-shadow: 0 0 40px rgba(212,175,110,0.07);
 }
 .brand-logo-placeholder {
-    width: 110px;
-    height: 110px;
+    width: 100px; height: 100px;
     border-radius: 50%;
     background: #111;
-    border: 1px solid rgba(212,175,110,0.3);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    border: 1px solid rgba(212,175,110,0.25);
+    display: flex; align-items: center; justify-content: center;
     font-family: 'Cormorant Garamond', serif;
-    font-size: 2.2rem;
-    color: #d4af6e;
-    margin-bottom: 18px;
+    font-size: 2rem; color: #d4af6e;
+    margin-bottom: 16px;
 }
 .brand-name {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 2rem;
+    font-size: 1.9rem;
     font-weight: 400;
-    letter-spacing: 0.35em;
+    letter-spacing: 0.38em;
     color: #d4af6e;
     text-transform: uppercase;
     line-height: 1;
 }
-.brand-line {
-    width: 40px;
-    height: 1px;
-    background: rgba(212,175,110,0.4);
+.brand-rule {
+    width: 36px; height: 1px;
+    background: rgba(212,175,110,0.35);
     margin: 10px auto;
 }
 .brand-sub {
-    font-size: 0.65rem;
-    letter-spacing: 0.4em;
-    color: rgba(212,175,110,0.45);
+    font-size: 0.6rem;
+    letter-spacing: 0.45em;
+    color: rgba(212,175,110,0.4);
     text-transform: uppercase;
 }
 
-/* ── Messages ── */
+/* ── Messages area ── */
 .messages-wrap {
-    padding-bottom: 110px;
+    padding-bottom: 140px;
 }
 
-.msg-block {
+/* ── Single message row ── */
+.msg-row {
     display: flex;
-    margin-bottom: 20px;
-    gap: 10px;
     align-items: flex-end;
+    gap: 10px;
+    margin-bottom: 24px;
 }
-.msg-block.user-block { flex-direction: row-reverse; }
+.msg-row.user-row { flex-direction: row-reverse; }
 
-.avatar-dot {
-    width: 28px;
-    height: 28px;
+/* ── Avatar ── */
+.av {
+    width: 32px; height: 32px;
     border-radius: 50%;
     flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px;
+    letter-spacing: 0.05em;
 }
-.avatar-dot.bot-av {
-    background: rgba(212,175,110,0.08);
-    border: 1px solid rgba(212,175,110,0.2);
+.av.bot-av {
+    background: #131313;
+    border: 1px solid rgba(212,175,110,0.22);
     color: #d4af6e;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 13px;
 }
-.avatar-dot.user-av {
-    background: rgba(212,175,110,0.05);
+.av.user-av {
+    background: #131313;
     border: 1px solid rgba(212,175,110,0.15);
-    color: rgba(212,175,110,0.6);
+    color: rgba(212,175,110,0.5);
+    font-size: 13px;
 }
 
+/* ── Bubble ── */
 .bubble {
-    max-width: 80%;
-    padding: 13px 17px;
-    font-size: 0.88rem;
-    line-height: 1.7;
-    font-weight: 300;
+    max-width: 75%;
+    padding: 15px 20px;
+    font-size: 0.9rem;
+    line-height: 1.75;
     font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+    word-break: break-word;
 }
+
+/* Bot bubble */
 .bot-bubble {
-    background: rgba(212,175,110,0.05);
-    border: 1px solid rgba(212,175,110,0.13);
-    border-radius: 0 16px 16px 16px;
-    color: #e8dcc8;
+    background: #111111;
+    border: 1px solid rgba(212,175,110,0.18);
+    border-radius: 2px 18px 18px 18px;
+    color: #f0e6d2;
+    box-shadow: inset 0 0 0 1px rgba(212,175,110,0.04),
+                0 4px 24px rgba(0,0,0,0.35);
 }
+
+/* Gold left accent bar on bot bubble */
+.bot-bubble-wrap {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    gap: 0;
+    max-width: 75%;
+}
+.bot-accent {
+    width: 2px;
+    border-radius: 2px;
+    background: linear-gradient(to bottom, #d4af6e, rgba(212,175,110,0.2));
+    flex-shrink: 0;
+    margin-right: 10px;
+    min-height: 100%;
+}
+
+/* User bubble */
 .user-bubble {
-    background: rgba(212,175,110,0.1);
+    background: #131313;
     border: 1px solid rgba(212,175,110,0.22);
-    border-radius: 16px 0 16px 16px;
-    color: #f0e6d0;
+    border-radius: 18px 2px 18px 18px;
+    color: #f5eddc;
     text-align: right;
-    margin-left: auto;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.3);
 }
+
+/* sender label */
+.sender-label {
+    font-size: 0.62rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+}
+.bot-label  { color: rgba(212,175,110,0.45); }
+.user-label { color: rgba(212,175,110,0.3); text-align: right; }
 
 /* ── Empty state ── */
 .empty-state {
     text-align: center;
-    padding: 60px 20px 40px;
+    padding: 50px 20px 40px;
 }
-.empty-icon {
-    font-size: 2.4rem;
-    margin-bottom: 20px;
-    opacity: 0.7;
+.empty-diamond {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem;
+    color: rgba(212,175,110,0.25);
+    margin-bottom: 24px;
+    display: block;
+    letter-spacing: 0.4em;
 }
 .empty-title {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 1.5rem;
+    font-size: 1.45rem;
     font-weight: 400;
     color: #d4af6e;
-    letter-spacing: 0.05em;
-    margin-bottom: 10px;
+    letter-spacing: 0.06em;
+    margin-bottom: 14px;
 }
 .empty-desc {
-    font-size: 0.8rem;
-    color: rgba(212,175,110,0.4);
-    line-height: 1.8;
-    letter-spacing: 0.03em;
-    max-width: 300px;
+    font-size: 0.78rem;
+    color: rgba(212,175,110,0.38);
+    line-height: 1.9;
+    letter-spacing: 0.04em;
+    max-width: 320px;
     margin: 0 auto;
 }
 
-/* ── Input box ── */
+/* ── Luxury Chat Input Styling ── */
 [data-testid="stChatInput"] {
     position: fixed !important;
     bottom: 0 !important;
     left: 50% !important;
     transform: translateX(-50%) !important;
-    width: min(680px, 100%) !important;
-    padding: 16px 20px 20px !important;
-    background: linear-gradient(to top, #0a0a0a 75%, transparent) !important;
+    width: min(700px, 100%) !important;
+    padding: 20px 24px 30px !important;
+    background: linear-gradient(to top, #080808 85%, rgba(8,8,8,0)) !important;
     z-index: 999 !important;
 }
+
+[data-testid="stChatInput"] > div {
+    border: 1px solid rgba(212, 175, 110, 0.3) !important;
+    border-radius: 28px !important;
+    background: #0d0d0d !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), 0 0 15px rgba(212, 175, 110, 0.05) !important;
+    transition: all 0.3s ease-in-out !important;
+    padding: 4px 8px !important;
+}
+
+[data-testid="stChatInput"] > div:focus-within {
+    border-color: rgba(212, 175, 110, 0.75) !important;
+    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.8), 0 0 25px rgba(212, 175, 110, 0.18) !important;
+}
+
 [data-testid="stChatInput"] textarea {
-    background: rgba(212,175,110,0.05) !important;
-    border: 1px solid rgba(212,175,110,0.25) !important;
-    border-radius: 14px !important;
-    color: #e8dcc8 !important;
+    background: transparent !important;
+    color: #f0e6d2 !important;
     font-family: 'Montserrat', sans-serif !important;
-    font-size: 0.88rem !important;
+    font-size: 0.9rem !important;
     font-weight: 300 !important;
     caret-color: #d4af6e !important;
     resize: none !important;
+    letter-spacing: 0.03em !important;
+    padding: 12px 16px !important;
 }
-[data-testid="stChatInput"] textarea::placeholder {
-    color: rgba(212,175,110,0.3) !important;
-}
-[data-testid="stChatInput"] textarea:focus {
-    border-color: rgba(212,175,110,0.45) !important;
-    box-shadow: 0 0 0 3px rgba(212,175,110,0.06) !important;
-    outline: none !important;
-}
-button[data-testid="stChatInputSubmitButton"] {
-    background: rgba(212,175,110,0.12) !important;
-    border: 1px solid rgba(212,175,110,0.28) !important;
-    border-radius: 10px !important;
-    color: #d4af6e !important;
-    transition: background 0.2s !important;
-}
-button[data-testid="stChatInputSubmitButton"]:hover {
-    background: rgba(212,175,110,0.22) !important;
-}
-button[data-testid="stChatInputSubmitButton"] svg { fill: #d4af6e !important; }
 
-/* ── Mobile tweaks ── */
+[data-testid="stChatInput"] textarea::placeholder {
+    color: rgba(212, 175, 110, 0.35) !important;
+    letter-spacing: 0.04em !important;
+    font-style: italic !important;
+}
+
+button[data-testid="stChatInputSubmitButton"] {
+    background: linear-gradient(135deg, rgba(212, 175, 110, 0.25), rgba(212, 175, 110, 0.05)) !important;
+    border: 1px solid rgba(212, 175, 110, 0.4) !important;
+    border-radius: 50% !important;
+    width: 38px !important;
+    height: 38px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    transition: all 0.3s ease !important;
+    margin-right: 4px !important;
+}
+
+button[data-testid="stChatInputSubmitButton"]:hover {
+    background: #d4af6e !important;
+    border-color: #d4af6e !important;
+    box-shadow: 0 0 15px rgba(212, 175, 110, 0.5) !important;
+    transform: scale(1.05);
+}
+
+button[data-testid="stChatInputSubmitButton"] svg {
+    fill: #d4af6e !important;
+    transition: fill 0.3s ease !important;
+}
+
+button[data-testid="stChatInputSubmitButton"]:hover svg {
+    fill: #080808 !important;
+}
+
+/* ── Mobile ── */
 @media (max-width: 480px) {
-    .brand-logo { width: 85px; height: 85px; }
-    .brand-name  { font-size: 1.5rem; letter-spacing: 0.28em; }
-    .bubble      { font-size: 0.84rem; }
-    .page        { padding: 0 14px; }
+    .brand-logo  { width: 80px; height: 80px; }
+    .brand-name  { font-size: 1.45rem; letter-spacing: 0.3em; }
+    .bubble      { font-size: 0.85rem; padding: 13px 16px; }
+    .page        { padding: 0 12px; }
+    .bot-bubble-wrap, .bubble { max-width: 86%; }
+    [data-testid="stChatInput"] { padding: 12px 14px 20px !important; }
 }
 </style>
 """, unsafe_allow_html=True)
@@ -290,7 +356,7 @@ def ask_flowise(question: str, session_id: str) -> str:
             or data.get("response")
             or "عذراً، لم أفهم. ممكن تعيد السؤال؟"
         )
-    except Exception as e:
+    except Exception:
         return "عذراً، حدث خطأ مؤقت. حاول مرة ثانية بعد لحظة 🙏"
 
 
@@ -302,7 +368,7 @@ if "session_id" not in st.session_state:
     st.session_state.session_id = f"user-{int(time.time())}"
 
 
-# ─── RENDER PAGE ───────────────────────────────────────────────────────────────
+# ─── RENDER ────────────────────────────────────────────────────────────────────
 
 st.markdown('<div class="page">', unsafe_allow_html=True)
 
@@ -311,7 +377,7 @@ st.markdown(f"""
 <div class="brand-header">
     {logo_html}
     <div class="brand-name">Senjer</div>
-    <div class="brand-line"></div>
+    <div class="brand-rule"></div>
     <div class="brand-sub">Fragrances</div>
 </div>
 """, unsafe_allow_html=True)
@@ -322,37 +388,45 @@ st.markdown('<div class="messages-wrap">', unsafe_allow_html=True)
 if not st.session_state.messages:
     st.markdown("""
     <div class="empty-state">
-        <div class="empty-icon">✦</div>
+        <span class="empty-diamond">✦ ✦ ✦</span>
         <div class="empty-title">كيف يمكنني مساعدتك؟</div>
         <div class="empty-desc">
-            اسألني عن عطورنا، الأسعار، أو المجموعات المتاحة.<br><br>
-            Ask me anything about our fragrances, prices, or collections.
+            اسألني عن عطورنا، أسعارنا، أو المجموعات المتاحة<br><br>
+            Ask me anything about our fragrances, prices, or collections
         </div>
     </div>
     """, unsafe_allow_html=True)
+
 else:
     for msg in st.session_state.messages:
         if msg["role"] == "user":
             st.markdown(f"""
-            <div class="msg-block user-block">
-                <div class="avatar-dot user-av">↑</div>
-                <div class="bubble user-bubble">{msg["content"]}</div>
+            <div class="msg-row user-row">
+                <div class="av user-av">↑</div>
+                <div style="max-width:75%">
+                    <div class="sender-label user-label">You</div>
+                    <div class="bubble user-bubble">{msg["content"]}</div>
+                </div>
             </div>
             """, unsafe_allow_html=True)
         else:
             st.markdown(f"""
-            <div class="msg-block">
-                <div class="avatar-dot bot-av">✦</div>
-                <div class="bubble bot-bubble">{msg["content"]}</div>
+            <div class="msg-row">
+                <div class="av bot-av">✦</div>
+                <div style="max-width:75%; display:flex; flex-direction:column;">
+                    <div class="sender-label bot-label">Senjer</div>
+                    <div style="display:flex; flex-direction:row; align-items:stretch;">
+                        <div class="bot-accent"></div>
+                        <div class="bubble bot-bubble">{msg["content"]}</div>
+                    </div>
+                </div>
             </div>
             """, unsafe_allow_html=True)
 
-st.markdown('</div>', unsafe_allow_html=True)
-st.markdown('</div>', unsafe_allow_html=True)
+st.markdown('</div></div>', unsafe_allow_html=True)
 
-# ─── INPUT ─────────────────────────────────────────────────────────────────────
-
-if prompt := st.chat_input("اكتب رسالتك... / Type your message..."):
+# Input
+if prompt := st.chat_input("اكتب رسالتك هنا... / Type your message here..."):
     st.session_state.messages.append({"role": "user", "content": prompt})
     with st.spinner(""):
         reply = ask_flowise(prompt, st.session_state.session_id)
